@@ -59,6 +59,10 @@ public class Symbols {
             new Symbols('7', "--..."),
             new Symbols('8', "---.."),
             new Symbols('9', "----."),
-            new Symbols(' ', "   ")
+            new Symbols(' ', "   "),
+            new Symbols('!', "-.-.--"),
+            new Symbols('?', "..--.."),
+            new Symbols('.', ".-.-.-"),
+            new Symbols(',', "--..--")
     };
 }

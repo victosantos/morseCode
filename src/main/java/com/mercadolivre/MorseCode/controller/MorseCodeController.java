@@ -7,54 +7,56 @@ import com.mercadolivre.MorseCode.classes.Symbols;
 
 @RestController
 public final class MorseCodeController {
-    @GetMapping("/TranslateMorseCodeToPortuguese")
-    public String TranslateMorseCodeToPortuguese(@RequestParam(value = "phrase",
-            defaultValue = "--- .-.. .- -- ..- -. -.. --- -.-.--") String phrase){
+    @GetMapping("/TranslatePortugueseToMorseCode")
+    public String TranslatePortugueseToMorseCode(@RequestParam(value = "phrase",
+            defaultValue = "Ola Mundo!") String phrase){
         return MorseCodeController.MorseCode(phrase);
     }
 
-    @GetMapping("/TranslatePortugueseToMorseCode")
-    public String TranslatePortugueseToMorseCode(@RequestParam(value = "phrase",
-            defaultValue = "Olá Mundo!") String phrase){
+    @GetMapping("/TranslateMorseCodeToPortuguese")
+    public String TranslateMorseCodeToPortuguese(@RequestParam(value = "phrase",
+            defaultValue = "--- .-.. .-   -- ..- -. -.. --- -.-.--") String phrase){
         return MorseCodeController.Portuguese(phrase);
     }
 
     public static String MorseCode(String phrase) {
-        StringBuilder textMorse = new StringBuilder();
+        System.out.println(phrase.toUpperCase().toCharArray());
+        StringBuilder morseText = new StringBuilder();
         for (char letter : phrase.toUpperCase().toCharArray()) {
-            if (textMorse.length() > 0) {
-                textMorse.append(" ");
+            if (morseText.length() > 0) {
+                morseText.append(" ");
             }
-            textMorse.append(ToMorse(letter));
+            System.out.println(letter);
+            morseText.append(portuegueseLetter(letter));
         }
-        return textMorse.toString();
+        return morseText.toString();
     }
 
     public static String Portuguese(String morse) {
-        StringBuilder textNormal = new StringBuilder();
-        String[] palavrasMorse = morse.split("\\Q   \\E");
-        for (String palavraMorse : palavrasMorse) {
-            if (textNormal.length() > 0) {
-                textNormal.append(" ");
+        StringBuilder normalText = new StringBuilder();
+        String[] morseWords = morse.split("\\Q   \\E");
+        for (String morseWord : morseWords) {
+            if (normalText.length() > 0) {
+                normalText.append(" ");
             }
-            String[] letrasMorse = palavraMorse.trim().split(" ");
-            for (String letraMorse : letrasMorse) {
-                textNormal.append(ToPortuguese(letraMorse));
+            String[] morseLetters = morseWord.trim().split(" ");
+            for (String morseLetter : morseLetters) {
+                normalText.append(MorseLetter(morseLetter));
             }
         }
-        return textNormal.toString();
+        return normalText.toString();
     }
 
-    private static String ToMorse(char letter) {
-        for (Symbols Symbol : Symbols.getSymbols()) {
-            if (Symbol.getPortuguese() == letter) {
-                return Symbol.getMorseCode();
+    private static String portuegueseLetter(char letter) {
+        for (Symbols symbol : Symbols.getSymbols()) {
+            if (symbol.getPortuguese() == letter) {
+                return symbol.getMorseCode();
             }
         }
         throw new IllegalArgumentException("Símbolo inválido: \"" + letter + "\"");
     }
 
-    private static char ToPortuguese(String morse) {
+    private static char MorseLetter(String morse) {
         for (Symbols symbol : Symbols.getSymbols()) {
             if (symbol.getMorseCode().equals(morse)) {
                 return symbol.getPortuguese();
