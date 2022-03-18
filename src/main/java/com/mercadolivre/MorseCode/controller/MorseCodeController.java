@@ -10,16 +10,16 @@ public final class MorseCodeController {
     @GetMapping("/TranslatePortugueseToMorseCode")
     public String TranslatePortugueseToMorseCode(@RequestParam(value = "phrase",
             defaultValue = "Ola Mundo!") String phrase){
-        return MorseCodeController.MorseCode(phrase);
+        return MorseCodeController.toMorseCode(phrase);
     }
 
     @GetMapping("/TranslateMorseCodeToPortuguese")
     public String TranslateMorseCodeToPortuguese(@RequestParam(value = "phrase",
             defaultValue = "--- .-.. .-   -- ..- -. -.. --- -.-.--") String phrase){
-        return MorseCodeController.Portuguese(phrase);
+        return MorseCodeController.toPortuguese(phrase);
     }
 
-    public static String MorseCode(String phrase) {
+    public static String toMorseCode(String phrase) {
         System.out.println(phrase.toUpperCase().toCharArray());
         StringBuilder morseText = new StringBuilder();
         for (char letter : phrase.toUpperCase().toCharArray()) {
@@ -32,7 +32,7 @@ public final class MorseCodeController {
         return morseText.toString();
     }
 
-    public static String Portuguese(String morse) {
+    public static String toPortuguese(String morse) {
         StringBuilder normalText = new StringBuilder();
         String[] morseWords = morse.split("\\Q   \\E");
         for (String morseWord : morseWords) {
