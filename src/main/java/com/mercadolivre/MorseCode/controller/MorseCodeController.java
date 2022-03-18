@@ -10,13 +10,13 @@ public final class MorseCodeController {
     @GetMapping("/TranslateMorseCodeToPortuguese")
     public String TranslateMorseCodeToPortuguese(@RequestParam(value = "phrase",
             defaultValue = "--- .-.. .- -- ..- -. -.. --- -.-.--") String phrase){
-        return MorseCodeController.Portuguese(phrase);
+        return MorseCodeController.MorseCode(phrase);
     }
 
     @GetMapping("/TranslatePortugueseToMorseCode")
     public String TranslatePortugueseToMorseCode(@RequestParam(value = "phrase",
             defaultValue = "Olá Mundo!") String phrase){
-        return MorseCodeController.MorseCode(phrase);
+        return MorseCodeController.Portuguese(phrase);
     }
 
     public static String MorseCode(String phrase) {
